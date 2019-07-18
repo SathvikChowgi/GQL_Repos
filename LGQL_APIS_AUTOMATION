@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "877ab661-f01d-4699-9549-148bc6e41714",
+		"_postman_id": "11d2c8c6-1212-4232-b374-aee04b1ead55",
 		"name": "Licious_GraphQL_Schema-Version-01 copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2563,49 +2563,49 @@
 	],
 	"variable": [
 		{
-			"id": "0db163e8-7950-4191-9e5f-d4d28d5da9f4",
+			"id": "c0d0c16a-2366-4807-babc-b8d7b0efa873",
 			"key": "url",
 			"value": "http://54.254.183.137:4001/graphql",
 			"type": "string"
 		},
 		{
-			"id": "8a12fa3c-438f-4b62-814d-dc4c75a5e391",
+			"id": "e76f4246-1cbe-48d8-a9c8-8765d3a90572",
 			"key": "deviceId",
 			"value": "19c0a82bb7a1ccc3",
 			"type": "string"
 		},
 		{
-			"id": "e20923c3-1a3d-4ce8-92b6-b69d392ab83e",
+			"id": "dfb46e06-f73e-412c-9b5e-863b395041be",
 			"key": "hashKey",
 			"value": "7c533a38a4791a5eea1c83d6ba44b149",
 			"type": "string"
 		},
 		{
-			"id": "bdda504a-1029-4a34-823e-62c484855fea",
+			"id": "41e9c49f-a1a7-44b9-b40a-8e6f4bb91acd",
 			"key": "date",
-			"value": "15-07-2019",
+			"value": "18-07-2019",
 			"type": "string"
 		},
 		{
-			"id": "aef1f4be-64d8-4657-ab6a-bcf199a6d00a",
+			"id": "338c2361-05f2-480b-ac1f-e53cf976b520",
 			"key": "password",
 			"value": "123456",
 			"type": "string"
 		},
 		{
-			"id": "ce75b5ab-caba-4f2f-9bef-1967d4ff0f21",
+			"id": "3f8e447b-169c-4f57-8113-ed38c8a41ac6",
 			"key": "hubId",
 			"value": "4",
 			"type": "string"
 		},
 		{
-			"id": "aba72afb-9cd2-4715-a812-33382cbc7a89",
+			"id": "8fbe2c51-d687-4783-bae4-c29f10a080a3",
 			"key": "id4Orders",
-			"value": "13419273",
+			"value": "13419304",
 			"type": "string"
 		},
 		{
-			"id": "d03053f9-349b-4541-a1a5-1698fa1028ab",
+			"id": "bc7fab2b-fa07-489f-8e8f-c200d8f16180",
 			"key": "productId",
 			"value": "pr_59a6c5c60df4b",
 			"type": "string"
