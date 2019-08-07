@@ -1,0 +1,2706 @@
+{
+	"info": {
+		"_postman_id": "11d2c8c6-1212-4232-b374-aee04b1ead55",
+		"name": "LGQL_APIS_AUTOMATION",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getToken",
+			"item": [
+				{
+					"name": "getToken-tc_01.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dba28ad5-f7b9-4138-8e8d-6aa6a4fbcda9",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in response body\", function () {",
+									"    pm.expect(response.data.getToken.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success\", function () {",
+									"    pm.expect(response.data.getToken.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message\", function () {",
+									"    pm.expect(response.data.getToken.message).to.eql(\"success\");",
+									"});",
+									"pm.test('verifying token is a STRING', () => {",
+									"    pm.expect(response.data.getToken.token).to.be.a('string')",
+									"});",
+									"pm.environment.set(\"token\",response.data.getToken.token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "46d4116c-3228-491e-888c-7ab10e57dcc8",
+								"exec": [
+									"pm.environment.set(\"phone\",8217690566);",
+									"",
+									"var commonTests = () => {",
+									"pm.test(\"Verifying status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verifying  response time is less than 6000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(6000);",
+									"});",
+									"",
+									"}",
+									"",
+									"pm.environment.set(\"commonTests\", commonTests.toString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation getToken($input:TokenInput){\r\n  getToken(input:$input){\r\n    code\r\n    success\r\n    message\r\n    token\r\n  }\r\n}",
+								"variables": "{\r\n \"input\":{\r\n \"deviceid\": \"{{deviceId}}\",\r\n  \"hashkey\": \"{{hashKey}}\"\r\n  \r\n  \r\n}\r\n\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenario"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getCustomer",
+			"item": [
+				{
+					"name": "getCustomer-tc_02.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b65e6130-b408-4312-8286-1b6aab809a90",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in response body \", function () {",
+									"    pm.expect(response.data.getCustomer.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in reponse body\", function () {",
+									"    pm.expect(response.data.getCustomer.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in response body \", function () {",
+									"    pm.expect(response.data.getCustomer.message).to.eql(\"Guest Key\");",
+									"});",
+									"pm.test('verifying token is a STRING', () => {",
+									"    pm.expect(response.data.getCustomer.customerId).to.be.a('string')",
+									"});",
+									"",
+									"pm.environment.set(\"Guest_Customer_Id\",response.data.getCustomer.customerId);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "{{hubId}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getCustomer{\r\n  getCustomer{\r\n    code\r\n    success\r\n    message\r\n    customerId\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "checking for the positive scenario"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "generateOTPSignUp",
+			"item": [
+				{
+					"name": "generateOTP-tc_03.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "58a8d61d-903b-44c0-a787-0421b441114a",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"pm.test(\"verifying code in response body \", function () {",
+									"    pm.expect(response.data.generateOTPSignup.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in response body \", function () {",
+									"    pm.expect(response.data.generateOTPSignup.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in response body \", function () {",
+									"    pm.expect(response.data.generateOTPSignup.message).to.eql(\"An OTP has been sent to your Mobile Number\");",
+									"});",
+									"pm.sendRequest(\"http://localhost:3000/api/customers/:\"+\"{{customerKey}}\", function (err, response) {",
+									"    const data = response.json();",
+									"    pm.environment.set(\"otp\", response[0].otp )",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "{{hubId}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation generateOTP($input:GenerateOTPSignupInput){\r\n  generateOTPSignup(input:$input){\r\n    code\r\n    success\r\n    message\r\n    data{\r\n      new_customer\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n  \"input\": {\r\n    \"phone\":\"{{phone}}\",\r\n    \"customer_key\":\"{{customerId}}\",\r\n    \"source\": \"msite\"\r\n  }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenario"
+					},
+					"response": []
+				},
+				{
+					"name": "getOTP",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e2705f03-63c7-441a-baf8-98053aa8d81e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "89468e27-02ba-40ae-a648-d09737abb59e",
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"otp\", response[0].otp);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/customers/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"customers",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{customerKey}}"
+								}
+							]
+						},
+						"description": "digging Database to get OTP"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "verifyOTPSignup",
+			"item": [
+				{
+					"name": "verifyOTPSignup-tc_04.1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a09efcf7-1b55-4ab4-a84a-d40f2a02ba6f",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a647e354-b08d-43f1-9b75-5584282f1c7c",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in response body\", function () {",
+									"    pm.expect(response.data.verifyOTPSignup.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in response body \", function () {",
+									"    pm.expect(response.data.verifyOTPSignup.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in response body\", function () {",
+									"    pm.expect(response.data.verifyOTPSignup.message).to.eql(\"OTP Verified\");",
+									"});",
+									"pm.test('verifying customer-key is a STRING', () => {",
+									"   pm.expect(response.data.verifyOTPSignup.data.customer_key).to.be.a('string')",
+									" });",
+									"",
+									"pm.environment.set(\"customerKey\", response.data.verifyOTPSignup.data.customer_key);",
+									"pm.environment.set(\"customerName\", response.data.verifyOTPSignup.data.name);",
+									"pm.environment.set(\"customerEmailId\", response.data.verifyOTPSignup.data.email);",
+									"pm.environment.set(\"hubId\", response.data.verifyOTPSignup.data.cart.hubid);",
+									"pm.environment.set(\"cartId\", response.data.verifyOTPSignup.data.cart.id);",
+									"pm.environment.set(\"lat\", response.data.verifyOTPSignup.data.addresses[0].lat);",
+									"pm.environment.set(\"lng\", response.data.verifyOTPSignup.data.addresses[0].lng);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "{{hubId}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation verifyOTPSignup($input: VerifyOTPSignupInput) {\r\n  verifyOTPSignup(input: $input) {\r\n    code\r\n    success\r\n    message\r\n    data {\r\n      customer_key\r\n      name\r\n      email\r\n      gender\r\n      phone\r\n      alternate_phone\r\n      dob\r\n      referral\r\n      pic\r\n      channel\r\n      otp_verified\r\n      type\r\n      tag\r\n      completed_profile\r\n      created_at\r\n      updated_at\r\n      merchant_offline_store_code\r\n      customer_type\r\n      first_order_date\r\n      last_order_date\r\n      total_orders\r\n      saved_cards\r\n      customer_token\r\n      cart {\r\n        customer_key\r\n        products {\r\n          hub_id\r\n          product_id\r\n          stock\r\n          base_price\r\n          product_name\r\n          image\r\n          quantity\r\n          weight\r\n          vat\r\n          discount\r\n          total\r\n          subtotal\r\n          offer_discount\r\n          limit\r\n          category_id\r\n          category_name\r\n          gross_wt\r\n          net_wt\r\n          live_stock\r\n          dispatched_quantity\r\n          rm_buffer\r\n          live_stock_avail\r\n          dispatched_quantity_avail\r\n          rm_buffer_avail\r\n          shipment_quantity\r\n          shipment_info_message\r\n          type\r\n          cut_off_time\r\n          cgst\r\n          sgst\r\n          hsn_number\r\n          pieces\r\n          actual_price\r\n          is_split\r\n          total_quantity\r\n        }\r\n        exotic {\r\n          hub_id\r\n          product_id\r\n          stock\r\n          base_price\r\n          product_name\r\n          image\r\n          quantity\r\n          weight\r\n          vat\r\n          discount\r\n          total\r\n          subtotal\r\n          offer_discount\r\n          limit\r\n          category_id\r\n          category_name\r\n          gross_wt\r\n          net_wt\r\n          live_stock\r\n          dispatched_quantity\r\n          rm_buffer\r\n          live_stock_avail\r\n          dispatched_quantity_avail\r\n          rm_buffer_avail\r\n          shipment_quantity\r\n          shipment_info_message\r\n          type\r\n          cut_off_time\r\n          cgst\r\n          sgst\r\n          hsn_number\r\n          pieces\r\n          actual_price\r\n          is_split\r\n          total_quantity\r\n        }\r\n        hubid\r\n        coupon\r\n        discount\r\n        vat\r\n        cart_total\r\n        cart_subtotal\r\n        status\r\n        exoticDate\r\n        exoticSlot\r\n        licious_wallet\r\n        shipping\r\n        offer_discount\r\n        shipments {\r\n          id\r\n          products {\r\n            hub_id\r\n            product_id\r\n            stock\r\n            base_price\r\n            product_name\r\n            image\r\n            quantity\r\n            weight\r\n            vat\r\n            discount\r\n            total\r\n            subtotal\r\n            offer_discount\r\n            limit\r\n            category_id\r\n            category_name\r\n            gross_wt\r\n            net_wt\r\n            live_stock\r\n            dispatched_quantity\r\n            rm_buffer\r\n            live_stock_avail\r\n            dispatched_quantity_avail\r\n            rm_buffer_avail\r\n            shipment_quantity\r\n            shipment_info_message\r\n            type\r\n            cut_off_time\r\n            cgst\r\n            sgst\r\n            hsn_number\r\n            pieces\r\n            actual_price\r\n            is_split\r\n            total_quantity\r\n          }\r\n          delivery_date\r\n          delivery_time\r\n          delivery_type\r\n          express_message\r\n          express_elligible\r\n          delivery_timestamp\r\n          shipment_total {\r\n            key\r\n            total\r\n          }\r\n          shipment_delivery_charge {\r\n            key\r\n            total\r\n          }\r\n          slots {\r\n            type\r\n            date\r\n            selected\r\n            timestamp\r\n            express_elligible\r\n            express_value\r\n          }\r\n        }\r\n\r\n        oss_products {\r\n          hub_id\r\n          product_id\r\n          stock\r\n          base_price\r\n          product_name\r\n          image\r\n          quantity\r\n          weight\r\n          vat\r\n          discount\r\n          total\r\n          subtotal\r\n          offer_discount\r\n          limit\r\n          category_id\r\n          category_name\r\n          gross_wt\r\n          net_wt\r\n          live_stock\r\n          dispatched_quantity\r\n          rm_buffer\r\n          live_stock_avail\r\n          dispatched_quantity_avail\r\n          rm_buffer_avail\r\n          shipment_quantity\r\n          shipment_info_message\r\n          type\r\n          cut_off_time\r\n          cgst\r\n          sgst\r\n          hsn_number\r\n          pieces\r\n          actual_price\r\n          is_split\r\n          total_quantity\r\n        }\r\n        id\r\n        delivery_free\r\n        messages {\r\n          message\r\n          priority\r\n          type\r\n          style\r\n          condition\r\n          whichEvent\r\n        }\r\n        offer_modified\r\n        tax {\r\n          attribute\r\n          value\r\n        }\r\n        _id\r\n      }\r\n      wallet {\r\n        WalletNumber\r\n        ExternalWalletId\r\n        WalletPin\r\n        Status\r\n        TrackData\r\n        BarCode\r\n        WalletProgramGroupName\r\n        WalletHolderName\r\n        Balance\r\n        ConsolidatedBalance\r\n        Notes\r\n        Card\r\n        Customer\r\n        customer_key\r\n        amount\r\n        expiry\r\n        promotional_balance\r\n        transactional_balance\r\n        credit_balace\r\n        limit\r\n        max_limit\r\n        eligible_promo\r\n        eligible_transaction\r\n        payable_wallet_amount\r\n        licious_cashp\r\n        licious_cash\r\n      }\r\n      addresses {\r\n        address_id\r\n        customer_key\r\n        guest_id\r\n        line1\r\n        line2\r\n        lat\r\n        lng\r\n        city\r\n        landmark\r\n        state\r\n        pincode\r\n        contact\r\n        created_at\r\n        updated_at\r\n        last_delivered_address\r\n        hub_id\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+								"variables": "{\r\n  \"input\": {\r\n  \"phone\": \"{{phone}}\",\r\n    \"otp\": \"{{otp}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"customer_key\": \"{{customerId}}\",\r\n    \"source\": \"msite\"\r\n  }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenerio"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getHubId",
+			"item": [
+				{
+					"name": "getHubid-tc_05.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fed4014a-3abb-41f4-9318-15957f8f4574",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in response body \", function () {",
+									"    pm.expect(response.data.getHubId.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in response body \", function () {",
+									"    pm.expect(response.data.getHubId.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in response body \", function () {",
+									"    pm.expect(response.data.getHubId.message).to.eql(\"Hub data fetched\");",
+									"});",
+									"pm.environment.set(\"hubId\",response.data.getHubId.hub);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "{{hubId}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getHubid($input:InputHubId!){\r\n  getHubId(input:$input){\r\n    code\r\n    success\r\n    message\r\n    text\r\n    status\r\n    image\r\n    app_url\r\n    web_url\r\n    msite_url\r\n    hub\r\n  }\r\n}",
+								"variables": "{\r\n \"input\":{\r\n \"lat\": \"{{lat}}\",\r\n  \"lng\": \"{{lng}}\",\r\n  \"source\": \"msite\"\r\n  \r\n}\r\n\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenario"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "saveOrEditAddress",
+			"item": [
+				{
+					"name": "saveOrEditAddress-tc_10.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6fd81fba-7b9c-4099-b9d8-7de3569af002",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.saveOrEditAddress.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body \", function () {",
+									"    pm.expect(response.data.saveOrEditAddress.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body \", function () {",
+									"    pm.expect(response.data.saveOrEditAddress.message).to.eql(\"success\");",
+									"});",
+									"pm.test('verifying cartId is a STRING', () => {",
+									"    pm.expect(response.data.saveOrEditAddress.address.address_id).to.be.a('string')",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "tk_jwrie8gv"
+							},
+							{
+								"key": "source",
+								"type": "text",
+								"value": "msite"
+							},
+							{
+								"key": "hubid",
+								"type": "text",
+								"value": "{{hubId}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation saveOrEditAddress($input: InputSaveAddressResponse!) {\r\n  saveOrEditAddress(input: $input) {\r\n    code\r\n    success\r\n    message\r\n    address {\r\n      address_id\r\n      customer_key\r\n      guest_id\r\n      line1\r\n      line2\r\n      lat\r\n      lng\r\n      city\r\n      landmark\r\n      state\r\n      pincode\r\n      contact\r\n      created_at\r\n      updated_at\r\n      last_delivered_address\r\n      hub_id\r\n    }\r\n  }\r\n}\r\n",
+								"variables": "{\r\n  \"input\": {\r\n    \"line1\": \"3nd floor\",\r\n    \"line2\": \"BSK 3rd Stage, Bengaluru, Karnataka 562008, India\",\r\n    \"city\": \"Bengaluru\",\r\n    \"lat\": \"{{lat}}\",\r\n    \"lng\": \"{{lng}}\",\r\n    \"address_id\": \"{{addressId}}\",\r\n    \"contact\": \"{{phone}}\",\r\n    \"landmark\": \"brigade 38\",\r\n    \"state\": \"Karnataka\",\r\n    \"pincode\": \"560011\",\r\n    \"name\": \"{{customerName}}\",\r\n    \"email\": \"{{customerEmailId}}\",\r\n    \"customer_key\": \"{{customerKey}}\"\r\n  }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getAddresses",
+			"item": [
+				{
+					"name": "getAddresses-tc_09.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a4296351-b3df-4f57-839c-b7658d4a9a4b",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in response body \", function () {",
+									"    pm.expect(response.data.getAddresses.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in response body \", function () {",
+									"    pm.expect(response.data.getAddresses.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in response body \", function () {",
+									"    pm.expect(response.data.getAddresses.message).to.eql(\"success\");",
+									"});",
+									"pm.environment.set(\"addressId\", response.data.getAddresses.data.address[0].address_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "{{hubId}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getAddresses($input:  AddressesInput!) {\r\n  getAddresses(input: $input) {\r\n    code\r\n    success\r\n    message\r\n    data {\r\n      address {\r\n        address_id\r\n        customer_key\r\n        guest_id\r\n        line1\r\n        line2\r\n        lat\r\n        lng\r\n        city\r\n        landmark\r\n        state\r\n        pincode\r\n        contact\r\n        created_at\r\n        updated_at\r\n        last_delivered_address\r\n        hub_id\r\n      }\r\n      defaultaddress\r\n    }\r\n  }\r\n}\r\n",
+								"variables": "{\r\n \"input\":{\r\n  \"customer_key\":\"{{customerKey}}\",\r\n  \"hub_id\": {{hubId}}\r\n  \r\n}\r\n\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenario"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "deleteSavedAddress",
+			"item": [
+				{
+					"name": "deleteSavedAddress-tc_11.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4f329496-72c2-4347-aab3-8257f51846d8",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.deleteSavedAddress.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body\", function () {",
+									"    pm.expect(response.data.deleteSavedAddress.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body\", function () {",
+									"    pm.expect(response.data.deleteSavedAddress.message).to.eql(\"success\");",
+									"});",
+									"pm.test('verifying success message is a STRING', () => {",
+									"    pm.expect(response.data.deleteSavedAddress.address.address_id).to.be.a('string')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "tk_jwrie8gv"
+							},
+							{
+								"key": "source",
+								"type": "text",
+								"value": "msite"
+							},
+							{
+								"key": "hubid",
+								"type": "text",
+								"value": "{{hubId}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation deleteSavedAddress($input:InputDeleteSavedAddress!){\r\n  deleteSavedAddress(input:$input){\r\n    code\r\n    success\r\n    message\r\n    successMessage\r\n  }\r\n}",
+								"variables": "{\r\n  \"input\": {\r\n    \"address_id\": \"{{addressId}}\",\r\n    \"customer_key\": \"{{customerKey}}\"\r\n  }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive Scenerio"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "updateCart",
+			"item": [
+				{
+					"name": "updateCart-tc_06.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "544ef005-73ca-4a66-b294-1c20dd33deea",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in response body \", function () {",
+									"    pm.expect(response.data.updateCart.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in response body \", function () {",
+									"    pm.expect(response.data.updateCart.success).to.eql(true);",
+									"});",
+									"pm.test('verifying productId is a STRING', () => {",
+									"    pm.expect(response.data.updateCart.product_id).to.be.a('string')",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2cc934ce-8941-409c-9c68-5e7fe66cd571",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "{{hubId}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpadteCart($input:UpdateCartInput!){\r\n updateCart(input:$input){\r\n   code\r\n   success\r\n   message\r\n   product_id\r\n   quantity\r\n   status\r\n   total\r\n   grand_total\r\n   shipping_charge\r\n   empty\r\n   item_count\r\n   product{\r\n     hub_id\r\n     base_price\r\n     weight\r\n     vat\r\n     discount\r\n     total\r\n     subtotal\r\n     offer_discount\r\n     limit\r\n     category_id\r\n     category_name\r\n     gross_wt\r\n     net_wt\r\n     live_stock\r\n     pieces\r\n     actual_price\r\n     product_name\r\n     product_id\r\n     stock\r\n     quantity\r\n   }\r\n }\r\n}",
+								"variables": "{\r\n \"input\": {\r\n    \"product_id\": \"{{productId}}\",\r\n   \"quantity\": \"1\",\r\n   \"source\": \"msite\",\r\n   \"hub_id\": \"{{hudId}}\",\r\n   \"customer_key\":\"{{customerKey}}\"\r\n\r\n }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenario"
+					},
+					"response": []
+				},
+				{
+					"name": "updateCart-tc_06.2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "544ef005-73ca-4a66-b294-1c20dd33deea",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in response body \", function () {",
+									"    pm.expect(response.data.updateCart.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in response body \", function () {",
+									"    pm.expect(response.data.updateCart.success).to.eql(true);",
+									"});",
+									"pm.test('verifying productId is a STRING', () => {",
+									"    pm.expect(response.data.updateCart.product_id).to.be.a('string')",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2cc934ce-8941-409c-9c68-5e7fe66cd571",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "{{hubId}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpadteCart($input:UpdateCartInput!){\r\n updateCart(input:$input){\r\n   code\r\n   success\r\n   message\r\n   product_id\r\n   quantity\r\n   status\r\n   total\r\n   grand_total\r\n   shipping_charge\r\n   empty\r\n   item_count\r\n   product{\r\n     hub_id\r\n     base_price\r\n     weight\r\n     vat\r\n     discount\r\n     total\r\n     subtotal\r\n     offer_discount\r\n     limit\r\n     category_id\r\n     category_name\r\n     gross_wt\r\n     net_wt\r\n     live_stock\r\n     pieces\r\n     actual_price\r\n     product_name\r\n     product_id\r\n     stock\r\n     quantity\r\n   }\r\n }\r\n}",
+								"variables": "{\r\n \"input\": {\r\n    \"product_id\": \"{{productId}}\",\r\n   \"quantity\": \"1\",\r\n   \"source\": \"msite\",\r\n   \"hub_id\": \"{{hudId}}\",\r\n   \"customer_key\":\"{{customerKey}}\"\r\n\r\n }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenario"
+					},
+					"response": []
+				},
+				{
+					"name": "updateCart-tc_06.3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "544ef005-73ca-4a66-b294-1c20dd33deea",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in response body \", function () {",
+									"    pm.expect(response.data.updateCart.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in response body \", function () {",
+									"    pm.expect(response.data.updateCart.success).to.eql(true);",
+									"});",
+									"pm.test('verifying productId is a STRING', () => {",
+									"    pm.expect(response.data.updateCart.product_id).to.be.a('string')",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2cc934ce-8941-409c-9c68-5e7fe66cd571",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "{{hubId}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpadteCart($input:UpdateCartInput!){\r\n updateCart(input:$input){\r\n   code\r\n   success\r\n   message\r\n   product_id\r\n   quantity\r\n   status\r\n   total\r\n   grand_total\r\n   shipping_charge\r\n   empty\r\n   item_count\r\n   product{\r\n     hub_id\r\n     base_price\r\n     weight\r\n     vat\r\n     discount\r\n     total\r\n     subtotal\r\n     offer_discount\r\n     limit\r\n     category_id\r\n     category_name\r\n     gross_wt\r\n     net_wt\r\n     live_stock\r\n     pieces\r\n     actual_price\r\n     product_name\r\n     product_id\r\n     stock\r\n     quantity\r\n   }\r\n }\r\n}",
+								"variables": "{\r\n \"input\": {\r\n    \"product_id\": \"{{productId}}\",\r\n   \"quantity\": \"1\",\r\n   \"source\": \"msite\",\r\n   \"hub_id\": \"{{hudId}}\",\r\n   \"customer_key\":\"{{customerKey}}\"\r\n\r\n }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenario"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "deleteProductFromCart",
+			"item": [
+				{
+					"name": "DeleteProductFromCart-tc_07.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bda6fb68-9487-46d2-86aa-a501555c5d27",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in response body\", function () {",
+									"    pm.expect(response.data.getHubId.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in response body \", function () {",
+									"    pm.expect(response.data.getHubId.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body\", function () {",
+									"    pm.expect(response.data.getHubId.message).to.eql(\"Hub \");});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "{{hubId}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation DeleteProductFromCart($input: DeleteProductInCartInput!) {\r\n  deleteProductInCart(input: $input) {\r\n    status\r\n    message\r\n    quantity\r\n    product_id\r\n    product {\r\n      hub_id\r\n      product_id\r\n      stock\r\n      base_price\r\n      product_name\r\n      image\r\n      quantity\r\n      weight\r\n      vat\r\n      discount\r\n      total\r\n      subtotal\r\n      offer_discount\r\n      limit\r\n      category_id\r\n      category_name\r\n      gross_wt\r\n      net_wt\r\n      live_stock\r\n      dispatched_quantity\r\n      rm_buffer\r\n      live_stock_avail\r\n      dispatched_quantity_avail\r\n      rm_buffer_avail\r\n      shipment_quantity\r\n      shipment_info_message\r\n      type\r\n      cut_off_time\r\n      cgst\r\n      sgst\r\n      hsn_number\r\n      pieces\r\n      actual_price\r\n    }\r\n    items_count\r\n    token\r\n    show_popup\r\n    popup_message\r\n    web_popup_message\r\n    cart_id\r\n    total\r\n    vat\r\n    discount\r\n    shipping\r\n    subtotal\r\n  }\r\n}\r\n",
+								"variables": "{\r\n \"input\": {\r\n    \"product_id\": \"{{productId}}\",\r\n   \"source\": \"msite\",\r\n   \"hub_id\": \"{{hubId}}\",\r\n   \"customer_key\":  \"{{customerKey}}\"\r\n\r\n }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenerio"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getCartID",
+			"item": [
+				{
+					"name": "getCartID-tc_08.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "00dfaf98-1bbb-4a03-8cec-1329d431faf2",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in response body \", function () {",
+									"    pm.expect(response.data.getCartId.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in response body \", function () {",
+									"    pm.expect(response.data.getCartId.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in response body\", function () {",
+									"    pm.expect(response.data.getCartId.message).to.eql(\"Cart fetched\");",
+									"});",
+									"pm.test('verifying cartId is a STRING', () => {",
+									"    pm.expect(response.data.getCartId.data.id).to.be.a('string')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "{{hubId}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getCaretid($input: CartIdInput) {\r\n  getCartId(input: $input) {\r\n    code\r\n    success\r\n    message\r\n    data {\r\n      customer_key\r\n      products {\r\n        hub_id\r\n        product_id\r\n        stock\r\n        base_price\r\n        product_name\r\n        image\r\n        quantity\r\n        weight\r\n        vat\r\n        discount\r\n        total\r\n        subtotal\r\n        offer_discount\r\n        limit\r\n        category_id\r\n        category_name\r\n        gross_wt\r\n        net_wt\r\n        live_stock\r\n        dispatched_quantity\r\n        rm_buffer\r\n        live_stock_avail\r\n        dispatched_quantity_avail\r\n        rm_buffer_avail\r\n        shipment_quantity\r\n        shipment_info_message\r\n        type\r\n        cut_off_time\r\n        cgst\r\n        sgst\r\n        hsn_number\r\n        pieces\r\n        actual_price\r\n      }\r\n      exotic {\r\n        hub_id\r\n        product_id\r\n        stock\r\n        base_price\r\n        product_name\r\n        image\r\n        quantity\r\n        weight\r\n        vat\r\n        discount\r\n        total\r\n        subtotal\r\n        offer_discount\r\n        limit\r\n        category_id\r\n        category_name\r\n        gross_wt\r\n        net_wt\r\n        live_stock\r\n        dispatched_quantity\r\n        rm_buffer\r\n        live_stock_avail\r\n        dispatched_quantity_avail\r\n        rm_buffer_avail\r\n        shipment_quantity\r\n        shipment_info_message\r\n        type\r\n        cut_off_time\r\n        cgst\r\n        sgst\r\n        hsn_number\r\n        pieces\r\n        actual_price\r\n      }\r\n      hubid\r\n      coupon\r\n      discount\r\n      vat\r\n      cart_total\r\n      cart_subtotal\r\n      status\r\n      exoticDate\r\n      exoticSlot\r\n      licious_wallet\r\n      shipping\r\n      offer_discount\r\n      created_at\r\n      updated_at\r\n      id\r\n      delivery_free\r\n      offer_modified\r\n      _id\r\n      shipments {\r\n        key\r\n      }\r\n      oss_products {\r\n        key\r\n      }\r\n      messages {\r\n        message\r\n        priority\r\n        condition\r\n        whichEvent\r\n        style\r\n        type\r\n      }\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n \"input\":{\r\n  \"customerKey\":\"{{customerKey}}\"\r\n}\r\n\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getShipmentSlots",
+			"item": [
+				{
+					"name": "getShipmentSlots-tc_12.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4002c63b-06ee-4256-87d7-794c16c61559",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body\", function () {",
+									"    pm.expect(response.data.getShipmentSlots.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body\", function () {",
+									"    pm.expect(response.data.getShipmentSlots.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body\", function () {",
+									"    pm.expect(response.data.getShipmentSlots.message).to.eql(\"success\");",
+									"});",
+									"",
+									"pm.environment.set(\"shipmentSlot\", response.data.getShipmentSlots.data.shipment_summary[0].slots[0].slots[4].time); ",
+									"",
+									"pm.environment.set(\"shipmentId\", response.data.getShipmentSlots.data.shipment_summary[0].id); ",
+									"",
+									"pm.test(\"verifying slot-7 AM - 9 AM\", function () {",
+									" pm.expect(response.data.getShipmentSlots.data.shipment_summary[0].slots[0].slots[0].time).to.eql(\"7 AM - 9 AM\");",
+									"});",
+									"",
+									"pm.test(\"verifying slot-9 AM - 11 AM\", function () {",
+									" pm.expect(response.data.getShipmentSlots.data.shipment_summary[0].slots[0].slots[1].time).to.eql(\"9 AM - 11 AM\");",
+									"});",
+									"",
+									"pm.test(\"verifying slot-11 AM - 2 PM\", function () {",
+									"   pm.expect(response.data.getShipmentSlots.data.shipment_summary[0].slots[0].slots[2].time).to.eql(\"11 AM - 2 PM\");",
+									"});",
+									"",
+									" pm.test(\"verifying slot-2 PM - 5 PM\", function () {",
+									" pm.expect(response.data.getShipmentSlots.data.shipment_summary[0].slots[0].slots[3].time).to.eql(\"2 PM - 5 PM\");",
+									" });",
+									" ",
+									" pm.test(\"verifying slot-5 PM - 8 PM\", function () {",
+									"pm.expect(response.data.getShipmentSlots.data.shipment_summary[0].slots[0].slots[4].time).to.eql(\"5 PM - 8 PM\");",
+									"});",
+									"",
+									" pm.test(\"verifying slot-8 PM - 10 PM\", function () {",
+									"  pm.expect(response.data.getShipmentSlots.data.shipment_summary[0].slots[0].slots[5].time).to.eql(\"8 PM - 10 PM\");",
+									"});",
+									"",
+									"pm.test(\"verifying slot-8 AM - 11 AM\", function () {",
+									" pm.expect(response.data.getShipmentSlots.data.shipment_summary[0].slots[0].slots[0].time).to.eql(\"8 AM - 11 AM\");",
+									"});",
+									"pm.test(\"verifying slot-11 AM - 2 PM\", function () {",
+									"   pm.expect(response.data.getShipmentSlots.data.shipment_summary[0].slots[0].slots[1].time).to.eql(\"11 AM - 2 PM\");",
+									"});",
+									" pm.test(\"verifying slot-2 PM - 5 PM\", function () {",
+									" pm.expect(response.data.getShipmentSlots.data.shipment_summary[0].slots[0].slots[2].time).to.eql(\"2 PM - 5 PM\");",
+									" });",
+									"pm.test(\"verifying slot-5 PM - 8 PM\", function () {",
+									"pm.expect(response.data.getShipmentSlots.data.shipment_summary[0].slots[0].slots[3].time).to.eql(\"5 PM - 8 PM\");",
+									"});",
+									" pm.test(\"verifying slot-8 PM - 10 PM\", function () {",
+									"  pm.expect(response.data.getShipmentSlots.data.shipment_summary[0].slots[0].slots[4].time).to.eql(\"8 PM - 10 PM\");",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "tk_jwrie8gv"
+							},
+							{
+								"key": "source",
+								"type": "text",
+								"value": "msite"
+							},
+							{
+								"key": "hubid",
+								"type": "text",
+								"value": "{{hubId}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getShipmentSlots($input: GetShipmentSlotsInput!) {\r\n  getShipmentSlots(input: $input) {\r\n    code\r\n    success\r\n    message\r\n    data {\r\n      shipment_summary {\r\n        id\r\n        products {\r\n          hub_id\r\n          product_id\r\n          stock\r\n          base_price\r\n          product_name\r\n          image\r\n          quantity\r\n          weight\r\n          vat\r\n          discount\r\n          total\r\n          subtotal\r\n          offer_discount\r\n          limit\r\n          category_id\r\n          category_name\r\n          net_wt\r\n          gross_wt\r\n          live_stock\r\n          dispatched_quantity\r\n          rm_buffer\r\n          shipment_quantity\r\n          shipment_info_message\r\n          type\r\n          cut_off_time\r\n          cgst\r\n          sgst\r\n          hsn_number\r\n          pieces\r\n          actual_price\r\n          is_split\r\n          total_quantity\r\n        }\r\n        selected\r\n        delivery_timestamp\r\n        slots {\r\n          type\r\n          timestamp\r\n          slots{\r\n            time\r\n            status\r\n            selected\r\n          }\r\n          selected\r\n          date\r\n          is_express\r\n        }\r\n      }\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n \"input\":{\r\n   \"customer_key\":\"{{customerKey}}\"\r\n}\r\n\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "updateShipmentSlots",
+			"item": [
+				{
+					"name": "updateShipmentSlots-tc_13.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c80e9a2-bf0c-46f6-a1ff-be291ac173cd",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.updateShipmentSlot.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body\", function () {",
+									"    pm.expect(response.data.updateShipmentSlot.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body \", function () {",
+									"    pm.expect(response.data.updateShipmentSlot.message).to.eql(\"success\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "tk_jwrie8gv"
+							},
+							{
+								"key": "source",
+								"type": "text",
+								"value": "msite"
+							},
+							{
+								"key": "hubid",
+								"type": "text",
+								"value": "{{hubId}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updateShipmentSlots($input:UpdateShipmentSlotInput){\r\n  updateShipmentSlot(input:$input){\r\n    code\r\n    success\r\n    message\r\n    data{\r\nshipment_summary{\r\nid\r\nproducts{\r\nhub_id\r\nproduct_id\r\nstock\r\nbase_price\r\nproduct_name\r\nimage\r\nquantity\r\nweight\r\nvat\r\ndiscount\r\ntotal\r\nsubtotal\r\noffer_discount\r\nlimit\r\ncategory_id\r\ncategory_name\r\ngross_wt\r\nnet_wt\r\nlive_stock\r\ndispatched_quantity\r\nrm_buffer\r\nlive_stock_avail\r\ndispatched_quantity_avail\r\nrm_buffer_avail\r\nshipment_quantity\r\nshipment_info_message\r\ntype\r\ncut_off_time\r\ncgst\r\nsgst\r\nhsn_number\r\npieces\r\nactual_price\r\nis_split\r\ntotal_quantity\r\n}\r\ndelivery_timestamp\r\nslots{\r\ntype\r\ndate\r\nselected\r\ntimestamp\r\nslots{\r\ntime\r\nstatus\r\nselected\r\n}\r\nis_express\r\n}\r\nselected\r\nshipment_charges{\r\nattribute\r\nvalue\r\n}\r\nmessages{\r\nmessage\r\npriority\r\ntype\r\nstyle\r\ncondition\r\n}\r\n}\r\norder_charges{\r\nattribute\r\nvalue\r\n      }\r\nmessages{\r\nmessage\r\npriority\r\ntype\r\nstyle\r\ncondition\r\n      }\r\nshipment_alert_message{\r\nmessage\r\npriority\r\ntype\r\nstyle\r\ncondition\r\n      }\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n  \"input\": {\r\n    \"date\": \"{{date}}\",\r\n    \"slot\": \"{{shipmentSlot}}\",\r\n    \"shipment_id\": \"{{shipmentId}}\",\r\n    \"customer_key\": \"{{customerKey}}\"\r\n  }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "lockShipment",
+			"item": [
+				{
+					"name": "lockShipment-tc_27.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "81cb5ee7-c06c-42de-bec4-d82ae8e205b3",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))(); ",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.lockShipment.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body \", function () {",
+									"    pm.expect(response.data.lockShipment.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body \", function () {",
+									"    pm.expect(response.data.lockShipment.message).to.eql(\"success\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "tk_jwrie8cw",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "4",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query LockShipment($input:Input_LockShipment!){\r\n  lockShipment(input:$input){\r\n    code\r\n    success\r\n    message\r\n    messages{\r\n      message\r\n      priority\r\n      type\r\n      style\r\n    }\r\n    order_charges{\r\n      attribute\r\n      value\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n \"input\":{\r\n   \"customer_key\":\"{{customerId}}\"\r\n}\r\n\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenario"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getPaymentMethods",
+			"item": [
+				{
+					"name": "getPaymentMethods-tc_14.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5c6b1eea-f15d-462b-a5f6-a3b894316732",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.getPaymentMethods.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.message).to.eql(\"success\");",
+									"});",
+									"pm.test(\"verifying payments group name - liciouswallet\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[0].group_name).to.eql(\"liciouswallet\");",
+									"});",
+									"pm.test(\"verifying payments display name- liciouswallet\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[0].display_name).to.eql(\"Licious Wallet\");",
+									"});",
+									"pm.test(\"verifying payments group name - paytm\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[1].group_name).to.eql(\"paytm\");",
+									"});",
+									"pm.test(\"verifying payments display name- Paytm\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[1].display_name).to.eql(\"Paytm\");",
+									"});",
+									"pm.test(\"verifying payments group name - simpl\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[2].group_name).to.eql(\"simpl\");",
+									"});",
+									"pm.test(\"verifying payments display name- simpl\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[2].display_name).to.eql(\"simpl\");",
+									"});",
+									"pm.test(\"verifying payments group name - preferred_payments\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[3].group_name).to.eql(\"preferred_payments\");",
+									"});",
+									"pm.test(\"verifying payments display name- Preferred Payments\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[3].display_name).to.eql(\"Preferred Payments\");",
+									"});",
+									"pm.test(\"verifying payments group name - razorpay_cards\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[4].group_name).to.eql(\"razorpay_cards\");",
+									"});",
+									"pm.test(\"verifying payments display name- Credit / Debit cards\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[4].display_name).to.eql(\"Credit / Debit cards\");",
+									"});",
+									"pm.test(\"verifying payments group name - razorpay_netbanking\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[5].group_name).to.eql(\"razorpay_netbanking\");",
+									"});",
+									"pm.test(\"verifying payments display name- Netbanking\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[5].display_name).to.eql(\"Netbanking\");",
+									"});",
+									"pm.test(\"verifying payments group name -razorpay_wallets\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[6].group_name).to.eql(\"razorpay_wallets\");",
+									"});",
+									"pm.test(\"verifying payments display name- Other wallets....\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[6].display_name).to.eql(\"Other wallets....\");",
+									"});",
+									"pm.test(\"verifying payments group name -razorpay_upi\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[7].group_name).to.eql(\"razorpay_upi\");",
+									"});",
+									"pm.test(\"verifying payments display name- Pay using UPI\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[7].display_name).to.eql(\"Pay using UPI\");",
+									"});",
+									"pm.test(\"verifying payments group name -pod\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[8].group_name).to.eql(\"pod\");",
+									"});",
+									"pm.test(\"verifying payments display name- Pay Online on Delivery\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[8].display_name).to.eql(\"Pay Online on Delivery\");",
+									"});",
+									"pm.test(\"verifying payments group name -cod\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[9].group_name).to.eql(\"cod\");",
+									"});",
+									"pm.test(\"verifying payments display name- Cash on Delivery\", function () {",
+									"    pm.expect(response.data.getPaymentMethods.payments[9].display_name).to.eql(\"Cash on Delivery\");",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "tk_jwrie8gv"
+							},
+							{
+								"key": "source",
+								"type": "text",
+								"value": "msite"
+							},
+							{
+								"key": "hubid",
+								"type": "text",
+								"value": "{{hubId}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getPaymentMethods($input: InputPaymentMethods!) {\r\n  getPaymentMethods(input: $input) {\r\n    code\r\n    success\r\n    message\r\n    messages {\r\n      message\r\n      priority\r\n      type\r\n      style\r\n      condition\r\n      whichEvent\r\n    }\r\n    payments {\r\n      preferred_payment\r\n      enabled\r\n      group_name\r\n      display_name\r\n      meta {\r\n        icon_url\r\n        promo_msg\r\n        disable_message\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+								"variables": "{\r\n \"input\":{\r\n  \"customer_key\": \"{{customerKey}}\"\r\n  \r\n}\r\n\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenario"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "applyCoupon",
+			"item": [
+				{
+					"name": "ApplyCoupon-tc_15.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7a19432-59b7-447c-85e4-b0a240415d35",
+								"exec": [
+									"pm.test(\"Verifystatus code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify response time is less than 6000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(6000);",
+									"});",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code\", function () {",
+									"    pm.expect(response.data.applyCoupon.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success\", function () {",
+									"    pm.expect(response.data.applyCoupon.success).to.eql(true);",
+									"});",
+									"pm.test('verifying MESSAGE is a STRING', () => {",
+									"    pm.expect(response.data.applyCoupon.message).to.be.a('string')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "tk_jwrie8gv"
+							},
+							{
+								"key": "source",
+								"type": "text",
+								"value": "msite"
+							},
+							{
+								"key": "hubid",
+								"type": "text",
+								"value": "{{hubId}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ApplyCoupon($input: InputApplyCoupon!) {\r\n  applyCoupon(input: $input) {\r\n    code\r\n    success\r\n    message\r\n    status\r\n    order_charges {\r\n      attribute\r\n      value\r\n    }\r\n    cart {\r\n      cart_id\r\n      coupon\r\n      total\r\n      subtotal\r\n      vat\r\n      discount\r\n      shipping\r\n      coupon_type\r\n      shipments {\r\n        id\r\n        delivery_date\r\n        delivery_time\r\n        delivery_type\r\n        express_message\r\n        express_elligible\r\n        delivery_timestamp\r\n        shipment_total {\r\n          key\r\n          total\r\n        }\r\n        shipment_delivery_charge {\r\n          key\r\n          total\r\n        }\r\n        discount\r\n        slots {\r\n          type\r\n          date\r\n          selected\r\n          timestamp\r\n          slots {\r\n            time\r\n            status\r\n            selected\r\n          }\r\n          express_elligible\r\n          express_value\r\n        }\r\n        products {\r\n          hub_id\r\n          product_id\r\n          stock\r\n          base_price\r\n          product_name\r\n          image\r\n          quantity\r\n          weight\r\n          vat\r\n          discount\r\n          total\r\n          subtotal\r\n          offer_discount\r\n          limit\r\n          category_id\r\n          category_name\r\n          gross_wt\r\n          net_wt\r\n          live_stock\r\n          dispatched_quantity\r\n          rm_buffer\r\n          live_stock_avail\r\n          dispatched_quantity_avail\r\n          rm_buffer_avail\r\n          shipment_quantity\r\n          shipment_info_message\r\n          type\r\n          cut_off_time\r\n          cgst\r\n          sgst\r\n          hsn_number\r\n          pieces\r\n          actual_price\r\n        }\r\n      }\r\n    }\r\n    free_delivery\r\n  }\r\n}\r\n",
+								"variables": "{\r\n  \"input\": {\r\n\t\"cart_id\": \"{{cartId}}\",\r\n    \"customer_key\": \"{{customerKey}}\",\r\n    \"source\": \"mobilesite\",\r\n    \"coupon\": \"CART10\"\r\n  }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "removeCoupon",
+			"item": [
+				{
+					"name": "RemoveCoupon-tc_16.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "42ccc921-b13e-472e-bef3-961f0fb8b7f7",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))(); ",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.removeCoupon.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body\", function () {",
+									"    pm.expect(response.data.removeCoupon.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body\", function () {",
+									"    pm.expect(response.data.removeCoupon.message).to.eql(\"Coupon removed.\");",
+									"});",
+									"let enviCartId = pm.environment.get(\"cartId\");",
+									"pm.test(\"verifying cartId\", function () {",
+									"    pm.expect(response.data.removeCoupon.cart.cart_id).to.eql(enviCartId);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "tk_jwrie8gv"
+							},
+							{
+								"key": "source",
+								"type": "text",
+								"value": "msite"
+							},
+							{
+								"key": "hubid",
+								"type": "text",
+								"value": "{{hubId}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation removeCoupon($input:InputRemoveCoupon!){\r\n  removeCoupon(input:$input){\r\n    code\r\n    success\r\n    message\r\n    cart{\r\ncart_id\r\ncoupon\r\ntotal\r\nsubtotal\r\nvat\r\ndiscount\r\nshipping\r\ncoupon_type\r\nshipments{\r\nid\r\ndelivery_date\r\ndelivery_time\r\ndelivery_type\r\nexpress_message\r\nexpress_elligible\r\ndelivery_timestamp\r\nshipment_total{\r\n  key\r\n  total\r\n}\r\nshipment_delivery_charge{\r\n  key\r\n  total\r\n}\r\ndiscount\r\nslots{\r\n  type\r\ndate\r\nselected\r\ntimestamp\r\nslots{\r\n  time\r\n  status\r\n  selected\r\n}\r\nexpress_elligible\r\nexpress_value\r\n}\r\nproducts{\r\nhub_id\r\nproduct_id\r\nstock\r\nbase_price\r\nproduct_name\r\nimage\r\nquantity\r\nweight\r\nvat\r\ndiscount\r\ntotal\r\nsubtotal\r\noffer_discount\r\nlimit\r\ncategory_id\r\ncategory_name\r\ngross_wt\r\nnet_wt\r\nlive_stock\r\ndispatched_quantity\r\nrm_buffer\r\nlive_stock_avail\r\ndispatched_quantity_avail\r\nrm_buffer_avail\r\nshipment_quantity\r\nshipment_info_message\r\ntype\r\ncut_off_time\r\ncgst\r\nsgst\r\nhsn_number\r\npieces\r\nactual_price\r\n}\r\n}\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n  \"input\": {\r\n    \"cart_id\": \"{{cartId}}\",\r\n    \"customer_key\": \"{{customerKey}}\",\r\n    \"source\": \"mobilesite\"\r\n    \r\n  }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive Scenerio"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getWalletInfo",
+			"item": [
+				{
+					"name": "getWalletInfo-tc_17.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6583e1ba-34a6-46bc-9cd3-86dc3b6ad802",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.getWalletInfo.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body\", function () {",
+									"    pm.expect(response.data.getWalletInfo.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body \", function () {",
+									"    pm.expect(response.data.getWalletInfo.message).to.eql(\"success\");",
+									"});",
+									"pm.environment.set(\"WalletNumber\",response.data.getWalletInfo.data.licious_wallet.WalletNumber);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "{{hubId}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getWalletInfo($input: WalletInfoInput) {\r\n  getWalletInfo(input: $input) {\r\n    code\r\n    success\r\n    message\r\n    data {\r\n      order_total\r\n      licious_wallet {\r\n        WalletNumber\r\n        ExternalWalletId\r\n        WalletPin\r\n        Status\r\n        TrackData\r\n        BarCode\r\n        WalletProgramGroupName\r\n        WalletHolderName\r\n        Balance\r\n        ConsolidatedBalance\r\n        Notes\r\n        Card\r\n        Customer\r\n        customer_key\r\n        amount\r\n        expiry\r\n        promotional_balance\r\n        transactional_balance\r\n        credit_balace\r\n        limit\r\n        max_limit\r\n        eligible_promo\r\n        eligible_transaction\r\n        payable_wallet_amount\r\n        licious_cashp\r\n        licious_cash\r\n        total_payble_after_wallet\r\n        total_payble_without_wallet\r\n      }\r\n      order_charges{\r\n        attribute\r\n        value\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+								"variables": "{\r\n \"input\":{\r\n   \"customer_key\":\"{{customerKey}}\"\r\n}\r\n\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getPayTmStatus",
+			"item": [
+				{
+					"name": "getPayTmStatus-tc_24.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2128b0b5-1270-4119-9113-69d3d3b7cd6a",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.getPaytmStatus.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body \", function () {",
+									"    pm.expect(response.data.getPaytmStatus.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body \", function () {",
+									"    pm.expect(response.data.getPaytmStatus.message).to.eql(\"success\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "tk_jwrie8cw",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "4",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getPaymentStatus($input:PaytmStatusInput){\r\n  getPaytmStatus(input:$input){\r\n    code\r\n    success\r\n    message\r\n    data{\r\n      verified\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n \"input\":{\r\n  \"customer_key\": \"{{customerKey}}\"\r\n  \r\n  \r\n}\r\n\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenario"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getPayTmBalance",
+			"item": [
+				{
+					"name": "getPayTmBalance-tc_18.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bf4d27cf-07c8-40ba-a251-8bffd4ec6c6a",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.getPaytmBalance.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body \", function () {",
+									"    pm.expect(response.data.getPaytmBalance.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body \", function () {",
+									"    pm.expect(response.data.getPaytmBalance.message).to.eql(\"Balance fetched\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "tk_jwrie8gv"
+							},
+							{
+								"key": "source",
+								"type": "text",
+								"value": "msite"
+							},
+							{
+								"key": "hubid",
+								"type": "text",
+								"value": "{{hubId}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation getPayTmBalance($input:PaytmBalanceInput){\r\n  getPaytmBalance(input:$input){\r\n    code\r\n    success\r\n    message\r\n    data{\r\n      balance\r\n      is_food_wallet\r\n      food_balance\r\n      food_wallet_issued_by\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n  \"input\": {\r\n    \"customer_key\": \"{{customerKey}}\"\r\n  }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getSavedCard",
+			"item": [
+				{
+					"name": "getSavedcard-tc_19.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8e748083-436f-466e-9687-befd355b12b9",
+								"exec": [
+									"pm.test(\"Verify status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify response time is less than 6000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(6000);",
+									"});",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code\", function () {",
+									"    pm.expect(response.data.getSavedCard.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success\", function () {",
+									"    pm.expect(response.data.getSavedCard.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message\", function () {",
+									"    pm.expect(response.data.getSavedCard.message).to.eql(\"success\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "tk_jwrie8gv"
+							},
+							{
+								"key": "source",
+								"type": "text",
+								"value": "msite"
+							},
+							{
+								"key": "hubid",
+								"type": "text",
+								"value": "{{hubId}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getSavedCard($input: SavedCardInput) {\r\n  getSavedCard(input: $input) {\r\n    code\r\n    success\r\n    message\r\n    data {\r\n      razorpay_customer_token\r\n      tokens {\r\n        entity\r\n        count\r\n        items {\r\n          id\r\n          entity\r\n          token\r\n          bank\r\n          wallet\r\n          method\r\n          card {\r\n            entity\r\n            name\r\n            last4\r\n            network\r\n            type\r\n            issuer\r\n            international\r\n            emi\r\n            expiry_month\r\n            expiry_year\r\n            flows {\r\n              recurring\r\n            }\r\n          }\r\n          recurring\r\n          auth_type\r\n          mrn\r\n          used_at\r\n          created_at\r\n          expired_at\r\n        }\r\n      }\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n \"input\":{\r\n   \"customerKey\":\"{{customerKey}}\",\r\n  \t\"email\": \"{{customerEmailId}}\",\r\n  \"phone\": \"{{phone}}\",\r\n  \"name\": \"{{customerName}}\"\r\n}\r\n\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "createOrder",
+			"item": [
+				{
+					"name": "createOrder-tc_20.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1b82b254-cde4-45ab-b956-df2b5e3e8035",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.createOrder.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body \", function () {",
+									"    pm.expect(response.data.createOrder.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body \", function () {",
+									"    pm.expect(response.data.createOrder.message).to.eql(\"ORDER PLACED SUCCESSFULLY, WAITING FOR PAYMENT GATEWAY CONFIRMATION\");",
+									"});",
+									" pm.environment.set(\"payment_type\", response.data.createOrder.payments[0].type);",
+									" pm.environment.set(\"amount_to_deduct\", response.data.createOrder.payments[0].amount_to_deduct);",
+									" "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "tk_jwrie8cw",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "4",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation createOrder($input: CreateOrderInput) {\r\n  createOrder(input: $input) {\r\n    code\r\n    success\r\n    message\r\n    status\r\n    statusMessage\r\n    statusCode\r\n    order_id\r\n    orderDetails {\r\n      prices\r\n      product_ids\r\n      product_names\r\n    }\r\n    cart_value\r\n    coupon_yes_no\r\n    coupon\r\n    discount_amount\r\n    currency\r\n    total\r\n    total_paise\r\n    timer_value\r\n    payments {\r\n      type\r\n      amount_to_deduct\r\n      amount_to_deduct_paise\r\n      pg_order_id\r\n      status\r\n    }\r\n  }\r\n}\r\n",
+								"variables": "{\n\"input\": {\n  \"address_id\": \"{{addressId}}\",\n  \"payments\":{\n    \"type\": \"razorpay\",\n    \"amount_to_deduct\": \"617\"\n  },\n  \"coupon\": \"\",\n  \"total\": \"617\",\n  \"customer_key\": \"{{customerKey}}\",\n  \"source\": \"mobilesite\",\n  \"hub_id\": {{hubId}} \n}\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrderId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9739abf1-6158-43ec-9699-9baefc687f80",
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"order_id\", response[0].order_id);",
+									"",
+									"pm.environment.set(\"hubId\", response[0].hub_id);",
+									"",
+									"pm.environment.set(\"payment_type\", response[0].payment_type);",
+									"",
+									"pm.environment.set(\"parent_order_id\", response[0].parent_order_id);",
+									"pm.environment.set(\"total\", response[0].total);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/orders/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"orders",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{id4Orders}}"
+								}
+							]
+						},
+						"description": "with this request am getting the recent order Id of particular customer"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "updatePaymentStatus",
+			"item": [
+				{
+					"name": "updatePaymentStatus-tc_21.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cb58eec8-6318-4da4-a785-d9ad22b5e2f3",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.updatePaymentStatus.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body \", function () {",
+									"    pm.expect(response.data.updatePaymentStatus.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body \", function () {",
+									"    pm.expect(response.data.updatePaymentStatus.message).to.eql(\"success\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "tk_jxu72nv4",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "4",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updatePaymentStatus($input: UpdatePaymentStatusInput) {\r\n  updatePaymentStatus(input: $input) {\r\n    code\r\n    success\r\n    message\r\n    data {\r\n      order_id\r\n      payment_type\r\n      payment_status\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n  \"input\": {\r\n    \"order_id\": \"{{parent_order_id}}\",\r\n    \"payment\":{\r\n\t\t\t\t\t\"type\": \"{{payment_type}}\",\r\n      \t\t\"id\": \"\",\r\n      \t\t\"amount\": \"{{amount_to_deduct}}\",\r\n      \t\t\"status\": \"SUCCESS\"\r\n    } ,\r\n    \"secondry_action\": \"\",\r\n    \"source\": \"mobilesite\"\r\n    \r\n  }\r\n  \r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenerio"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getOrderStatus",
+			"item": [
+				{
+					"name": "getOrderStatus-tc_22.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "edd7bf83-ba79-4f08-b9b5-52daf9b1b612",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))(); ",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.getOrderStatus.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body \", function () {",
+									"    pm.expect(response.data.getOrderStatus.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body \", function () {",
+									"    pm.expect(response.data.getOrderStatus.message).to.eql(\"success\");",
+									"});",
+									"pm.environment.set(\"shipmentOrderId\", response.data.getOrderStatus.data.shipments[0].order_id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "tk_jwrie8cw"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "tk_jwrie8gv"
+							},
+							{
+								"key": "source",
+								"type": "text",
+								"value": "msite"
+							},
+							{
+								"key": "hubid",
+								"type": "text",
+								"value": "4"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getOrderStatus($input:OrderStatusInput){\r\n  getOrderStatus(input:$input){\r\n    code\r\n    success\r\n    message\r\n    data{\r\n      shipments{\r\n        order_id\r\n\t\t\t\tcustomer_key\r\npayment_type\r\npayment_status\r\nsheduled\r\nsheduled_time\r\nparent_order_id\r\ndelivery_address\r\nexpress\r\nmswipe_id\r\ncreated_at\r\nupdated_at\r\npayment_notification_datetime\r\nstate_id\r\nshipment_items{\r\n  product_id\r\nbase_price\r\nproduct_name\r\nimage\r\nquantity\r\nshipment_quantity\r\ndiscount\r\nweight\r\norder_id\r\nactual_price\r\nis_split\r\nshipment_info_message\r\n}\r\ntrack_link\r\nshipment_messages{\r\n  label\r\nitems_message\r\nstatus_message\r\nimage\r\nslot_message\r\nemail\r\nphone\r\nmessage\r\n}\r\namount{\r\n  total\r\nsplit{\r\n  attribute\r\n  value\r\n}\r\nbreak_down_msg\r\npayment_status\r\npayment_type\r\nis_payble\r\ncod_info_message\r\n}\r\norder_processing_date\r\noffers{\r\n  id\r\nname\r\nweb_url\r\nweb_image_url\r\napp_deep_link\r\napp_image_url\r\n}\r\nhomepage_date{\r\n  item_count_msg\r\n\timg_shipment\r\n\tplaced_on_label\r\n\tlabel\r\n\t\t\t}\r\n\r\ntrack_refresh_interval\r\n      }\r\n      payment_info{\r\n    \t\tpayment_status\r\n      }\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n \"input\":{\r\n  \"customer_key\": \"{{customerKey}}\",\r\n  \"order_id\": \"{{order_id}}\"\r\n}\r\n\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenario"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getPaymentStatus",
+			"item": [
+				{
+					"name": "getPaymentStatus-tc_23.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "07ad74c4-bc15-416f-a813-2404d4468936",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.getPaymentStatus.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body\", function () {",
+									"    pm.expect(response.data.getPaymentStatus.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body\", function () {",
+									"    pm.expect(response.data.getPaymentStatus.message).to.eql(\"success\");",
+									"});",
+									"pm.environment.set(\"amountDeducted\", response.data.getPaymentStatus.data.payment[0].amountDeducted);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "tk_jwrie8cw",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "4",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getPaymentStatus($input:PaymentStatusInput){\r\n  getPaymentStatus(input:$input){\r\n    code\r\n    success\r\n    message\r\n    data{\r\n      payment{\r\n        type\r\n        amountDeducted\r\n        status\r\n      }\r\n      status\r\n      parent_order_id\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n \"input\":{\r\n  \"order_id\": \"{{parent_order_id}}\",\r\n  \"source\": \"msite\"\r\n  \r\n}\r\n\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenario"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getActiveOrders",
+			"item": [
+				{
+					"name": "getActiveOrders-tc_25.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "83ced333-7e09-4475-ae52-af77c671edea",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.getActiveOrders.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying successin the response body\", function () {",
+									"    pm.expect(response.data.getActiveOrders.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body\", function () {",
+									"    pm.expect(response.data.getActiveOrders.message).to.eql(\"success\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "tk_jwrie8cw"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "tk_jwrie8gv"
+							},
+							{
+								"key": "source",
+								"type": "text",
+								"value": "msite"
+							},
+							{
+								"key": "hubid",
+								"type": "text",
+								"value": "4"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getActiveOrders($input:InputActiveOrder!){\r\n  getActiveOrders(input:$input){\r\n    code\r\n    success\r\n    message\r\n    paymentInfo{\r\n      parent_order_id\r\n      total\r\n      total_paise\r\n      payble\r\n      payment_status\r\n    }\r\n    shipments{\r\n      order_id\r\n      shipment_items{\r\n       product_id\r\n        img\r\n        weight\r\n        is_split\r\n        quantity\r\n        discount\r\n        \r\n      }\r\n      track_link\r\n      state_id\r\n      parent_order_id\r\n      shipment_messages{\r\n        slot_message\r\n      }\r\n      amount{\r\n        split{\r\n          value\r\n        }\r\n        is_payble\r\n      }\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n \"input\":{\r\n  \"customer_key\":\"{{customerKey}}\",\r\n  \"source\": \"mobilesite\"\r\n  \r\n}\r\n\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenario"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "trackCreatedOrders",
+			"item": [
+				{
+					"name": "trackCreatedOrders-tc_26.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bb1754fe-8538-4ffa-8f37-0ad037f569b8",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))();",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.trackCreatedOrder.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body \", function () {",
+									"    pm.expect(response.data.trackCreatedOrder.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying messagein the response body \", function () {",
+									"    pm.expect(response.data.trackCreatedOrder.message).to.eql(\"success\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "tk_jwrie8cw",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "4",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query trackCreatedOrders($input:Input_TrackOrder_Response!){\r\n  trackCreatedOrder(input:$input){\r\n    code\r\n    success\r\n    message\r\n    order{\r\n      state_id\r\ntrack_link\r\nstatus_message\r\nimage\r\nslot_message\r\nemail\r\nphone\r\nmessage\r\ntotal\r\nsplit{\r\n  attribute\r\n  value\r\n}\r\nbreak_down_msg\r\npayment_status\r\npayment_type\r\nis_payble\r\ncod_info_message\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n \"input\":{\r\n  \"order_id\": \"{{shipmentOrderId}}\",\r\n   \"customer_key\": \"{{customerKey}}\"\r\n  \r\n}\r\n\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reInitiatePayment",
+			"item": [
+				{
+					"name": "reinitiatepayment-tc_28.1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7b6c0db0-76c2-41f2-9c9a-03b0fe47d14a",
+								"exec": [
+									"eval(pm.environment.get(\"commonTests\"))(); ",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"pm.test(\"verifying code in the response body \", function () {",
+									"    pm.expect(response.data.reinitiatePayment.code).to.eql(200);",
+									"});",
+									"pm.test(\"verifying success in the response body \", function () {",
+									"    pm.expect(response.data.reinitiatePayment.success).to.eql(true);",
+									"});",
+									"pm.test(\"verifying message in the response body \", function () {",
+									"    pm.expect(response.data.reinitiatePayment.message).to.eql(\"success\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "tk_jwrie8cw",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "tk_jwrie8gv",
+								"type": "text"
+							},
+							{
+								"key": "source",
+								"value": "msite",
+								"type": "text"
+							},
+							{
+								"key": "hubid",
+								"value": "4",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation reinitiatepayment($input: Input_Reinitiate!) {\r\n  reinitiatePayment(input: $input) {\r\n    code\r\n    success\r\n    message\r\n    status\r\n    order_id\r\n    address_id\r\n    cart_id\r\n    web_popup_message\r\n    orderDetails {\r\n      product_ids\r\n      product_names\r\n      prices\r\n      delivery_type\r\n      delivery_slots\r\n      cart_value\r\n      hub_id\r\n      coupon_yes_no\r\n      coupon\r\n      discount_amount\r\n      currency\r\n    }\r\n    payments {\r\n      type\r\n      amount_to_deduct\r\n      amount_to_deduct_paise\r\n      pg_order_id\r\n      status\r\n    }\r\n    total\r\n    total_paise\r\n    timer_value\r\n  }\r\n}\r\n",
+								"variables": "{\r\n  \"input\": {\r\n    \"order_id\": \"{{parent_order_id}}\",\r\n    \"is_shipment\": \"0\",\r\n    \"payments\":{\r\n      \"type\": \"{{payment_type}}\",\r\n      \"amount_to_deduct\": \"{{amountDeducted}}\"\r\n    },\r\n    \"total\": \"{{amountDeducted}}\",\r\n    \"customer_key\": \"{{customerKey}}\",\r\n    \"source\": \"mobilesite\"\r\n  }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "positive scenerio"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f6372554-b8b4-4917-a361-dd79a8a93b99",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "4bd3e94c-dbb2-4489-b330-35d57cf701a1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "79115b59-4086-49f9-abe8-eb84d1efb9c8",
+			"key": "url",
+			"value": "http://54.254.183.137:4001/graphql",
+			"type": "string"
+		},
+		{
+			"id": "15d22d09-57c0-4077-aa3e-5c4ac7112305",
+			"key": "deviceId",
+			"value": "19c0a82bb7a1ccc3",
+			"type": "string"
+		},
+		{
+			"id": "fe5458a6-fbb0-4592-bdae-9c9a596bebd1",
+			"key": "hashKey",
+			"value": "7c533a38a4791a5eea1c83d6ba44b149",
+			"type": "string"
+		},
+		{
+			"id": "8f8e40b4-e50a-437a-b79c-8e945154ce09",
+			"key": "date",
+			"value": "25-07-2019",
+			"type": "string"
+		},
+		{
+			"id": "c287db45-c6fd-4e0a-9f26-18ed3fa1cced",
+			"key": "password",
+			"value": "123456",
+			"type": "string"
+		},
+		{
+			"id": "82ebe132-ae4d-42c6-b520-648fc9fed7b0",
+			"key": "hubId",
+			"value": "4",
+			"type": "string"
+		},
+		{
+			"id": "9449aab7-abd9-432e-ad1c-931ffaea2bf0",
+			"key": "id4Orders",
+			"value": "13419254",
+			"type": "string"
+		},
+		{
+			"id": "ea1ee771-6078-448a-aeec-9938aa89b72f",
+			"key": "productId",
+			"value": "pr_590f2bc508b4a",
+			"type": "string"
+		},
+		{
+			"id": "3fdeabd1-6b54-4bbc-8c62-7a440b0ae7ca",
+			"key": "customerKey",
+			"value": "c_jwrpg2t6",
+			"type": "string"
+		}
+	]
+}

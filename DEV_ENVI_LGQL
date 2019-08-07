@@ -1,0 +1,129 @@
+{
+	"id": "3d8731df-bcc4-4de6-aa56-41d06bcdfbfb",
+	"name": "Dev Environment",
+	"values": [
+		{
+			"key": "phone",
+			"value": 8217690566,
+			"enabled": true
+		},
+		{
+			"key": "token",
+			"value": "tk_jyfrname",
+			"enabled": true
+		},
+		{
+			"key": "otp",
+			"value": 81149,
+			"enabled": true
+		},
+		{
+			"key": "cartId",
+			"value": "5cff8c57e90d7c000fda6035",
+			"enabled": true
+		},
+		{
+			"key": "customerEmailId",
+			"value": "chowgisathvikusn099@gmail.com",
+			"enabled": true
+		},
+		{
+			"key": "customerName",
+			"value": "Sathvik",
+			"enabled": true
+		},
+		{
+			"key": "hubId",
+			"value": "4",
+			"enabled": true
+		},
+		{
+			"key": "lat",
+			"value": "12.969782900000004",
+			"enabled": true
+		},
+		{
+			"key": "lng",
+			"value": "77.6475521",
+			"enabled": true
+		},
+		{
+			"key": "totalAmount",
+			"value": 207,
+			"enabled": true
+		},
+		{
+			"key": "addressId",
+			"value": "102757",
+			"enabled": true
+		},
+		{
+			"key": "shipmentId",
+			"value": 1,
+			"enabled": true
+		},
+		{
+			"key": "shipmentSlot",
+			"value": "5 PM - 8 PM",
+			"enabled": true
+		},
+		{
+			"key": "parent_order_id",
+			"value": "jyiaynzj",
+			"enabled": true
+		},
+		{
+			"key": "payment_type",
+			"value": "COD",
+			"enabled": true
+		},
+		{
+			"key": "total",
+			"value": "64",
+			"enabled": true
+		},
+		{
+			"key": "order_id",
+			"value": "jy71vtxf",
+			"enabled": true
+		},
+		{
+			"key": "shipmentOrderId",
+			"value": "jy75uakt",
+			"enabled": true
+		},
+		{
+			"key": "amountDeducted",
+			"value": 388,
+			"enabled": true
+		},
+		{
+			"key": "amount_to_deduct",
+			"value": 488,
+			"enabled": true
+		},
+		{
+			"key": "commonTests",
+			"value": "() => {\npm.test(\"Verifying status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Verifying  response time is less than 6000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(6000);\n});\n\n}",
+			"enabled": true
+		},
+		{
+			"key": "Guest_Customer_Id",
+			"value": "g_jygx2giq",
+			"enabled": true
+		},
+		{
+			"key": "product",
+			"value": null,
+			"enabled": true
+		},
+		{
+			"key": "products",
+			"value": [],
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2019-07-25T08:34:45.916Z",
+	"_postman_exported_using": "Postman/7.3.4"
+}
